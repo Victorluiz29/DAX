@@ -1,0 +1,96 @@
+-- Acumulado de venda
+Acumulado = 
+CALCULATE(
+    [Total Lucro],
+    TOPN(
+        [Rank Lucro],
+        ALLSELECTED(Tb_Produtos),
+        [Total Lucro],
+        DESC
+    )
+)
+
+-- Acumulado de venda em porcentagem
+% Acumuldado = 
+ DIVIDE(
+    [Acumulado],
+    SUMX(
+        ALLSELECTED(Tb_Produtos),
+    [Total Lucro]
+    )
+)
+
+-- Lucro Acumulativo
+Lucro Acumulado = 
+CALCULATE(
+         [Total Lucro],
+          FILTER(
+               All(Tb_Calendario),
+               Tb_Calendario[Date] <= MAX(Tb_Calendario[Date])
+        )
+)
+
+-- se não for é se não 
+Analise ABC = 
+ SWITCH(
+    TRUE(),
+    [% Acumuldado] <= 0.6, "Produto A",
+    [% Acumuldado] <= 0.8, "Produto B",
+    "Produto C"
+ )
+ 
+-- Total de venda
+Total Vendas = 
+    SUMX(
+        Tb_ItensNotas,
+        [Quantidade]*
+        RELATED(
+            Tb_Produtos[Preço]
+            )
+        )
+ -- Filtro por data 
+ Tabela calendario = 
+ADDCOLUMNS(
+    CALENDARAUTO(),
+    "Dia num",DAY([Date]),
+    "Dia nome",FORMAT([date], "dddd"),
+    "Dia abv",FORMAT([date], "ddd"),
+    "Dia Semana", WEEKDAY([date]),
+    "Semana Num", WEEKNUM([Date]),
+    "Mês Num", MONTH([Date]),
+    "Mês nome",FORMAT([Date], "mmm"),
+    "Trimestre",QUARTER([Date]),
+    "Ano",YEAR([Date])
+)
+
+-- vendas entre datas 
+DATESBETWEEN = 
+ CALCULATE(
+    [Total Vendas],
+    DATESBETWEEN(
+        'Tabela calendario'[Date],
+        "01/01/2015",
+        "31/12/2015")
+ )
+
+
+
+-- total de comissão dos vendedores
+
+Total de cComissão = 
+ SUMX(
+    Tb_ItensNotas,[Tb_Produtos.Preço]*[Quantidade]*RELATED(Tb_Vendedores[Percentual Comissao])
+ )
+ 
+ -- Total de vendas por vendedor 
+ Total vendas Allan = 
+CALCULATE([Total Vendas],
+Tb_Vendedores[Nome] = "Allan Spadini"
+)
+
+-- total de vendas mais de um vendedor
+Total vendas thiago e david = 
+ CALCULATE(
+    SUMX(Tb_ItensNotas,[Quantidade]*[Tb_Produtos.Preço]),
+    Tb_Vendedores[Nome] IN {"Thiago Gonçalves","David Neves"}
+ )
