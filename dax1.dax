@@ -1,0 +1,71 @@
+﻿-- categoria de vendas por valores
+Categoria de Vendas SWITCH = 
+ SWITCH(TRUE(),
+ 'Livros'[Quantidade de vendas] > 240,"Alta",
+ 'Livros'[Quantidade de vendas] > 100 ,"Média",
+ "Baixa")
+ 
+ -- Classificação de margem
+ Classificação da margem = 
+IF('Livros'[Margem bruta %%] > 0.4,
+"Margem alta",
+"Margem Baixa"
+)
+
+-- Classificação por faturamento
+Classificação do faturamento = 
+ SWITCH(
+    TRUE(),
+    'Livros'[Faturamento total] > 20000,"Faturamento Alto",
+    'Livros'[Faturamento total] > 15000,"Faturamento médio",
+    "Faturamento Baixo")
+    
+-- Custo Total
+Custo Total = 'Livros'[Preço de custo] * 'Livros'[Quantidade de vendas] 
+
+-- desconto de venda de 50%
+desconto 50% = 'Livros'[Preço Unitário] * 0.5
+
+-- Faturamento Total
+Faturamento total = 'Livros'[Preço Unitário] * 'Livros'[Quantidade de vendas] 
+
+-- Margem Bruta
+Margem bruta = 'Livros'[Faturamento total] - 'Livros'[Custo Total]
+
+-- Margem Bruta Porcentagem
+
+Margem Bruta % = 'Livros'[Margem bruta] / 'Livros'[Faturamento total]
+Margem bruta % correta = SUM('Livros'[Margem bruta]) / SUM(Livros[Faturamento total]) --correta
+
+
+-- Total da Margem Bruta
+Margem bruta com BLANK = 
+IF(
+    ('Livros'[Faturamento total] - 'Livros'[Custo Total]) < 0,
+    BLANK(),
+    ('Livros'[Faturamento total] - 'Livros'[Custo Total])
+    
+-- Maximo das Quantidades
+Máximo da quantidade = MAX('Livros'[Quantidade de vendas] )
+
+-- Média dos Custos
+Média de custo = 
+ AVERAGEX('Livros', 'Livros'[Preço de custo])
+ 
+-- Média dos preços por unidade
+Média de preço por titulo = SUM(Livros[Preço Unitário]) / COUNT(Livros[Título]) 
+
+-- Total dos descontos dos preços
+Soma desconto preço unitario = SUM(Livros[desconto 50%]) 
+
+-- Total dos Preços
+Somatorio dos preços = SUM(Livros[Preço Unitário])
+
+-- Data por detalhe
+Cdatetime = CONVERT("2023-06-15", DATETIME) 
+
+-- Média de registro de venda 
+
+Media do leadtime = AVERAGE(registro_vendas[Leadtime])
+
+
