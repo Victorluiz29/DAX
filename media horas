@@ -1,0 +1,5 @@
+media de hora = 
+    VAR Total = AVERAGE(BookingsReportingData[Horas])
+    VAR Dias = INT(Total / 24)
+    VAR Horas = MOD(Total, 24)
+    RETURN Dias * 24 + Horas
