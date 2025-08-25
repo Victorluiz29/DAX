@@ -1,0 +1,9 @@
+atendimento = 
+SWITCH(
+    TRUE(),
+    'Abertos ate 03022025 (2)'[Cliente - Razão Social] IN {"TERRA", "CLIENTE_TERRESTRE", "CLIENTE_TERRESTRE_CEDIDO", "CLIENTE_TERRESTRE_CEDIDO_GESTOR", "CLIENTE_TERRESTRE_GESTOR","CLIENTE_ESTAGIARIO","RH - Transpetro","RH_TRANSPETRO","CLIENTE_DIRETOR"}, "TERRA",
+    'Abertos ate 03022025 (2)'[Cliente - Razão Social] IN {"MAR", "CLIENTE_MAR_EFETIVO", "CLIENTE_MAR_EFETIVO_GESTOR", "CLIENTE_MAR_PRATICANTE", "CLIENTE_MAR_TEMPORARIO"}, "MAR",
+    'Abertos ate 03022025 (2)'[Cliente - Razão Social] IN {"Desligados", "Inativos"}, "Desligados",
+    'Abertos ate 03022025 (2)'[Cliente - Razão Social] IN {"tercerizado", "CLIENTE_PRESTADOR_DE_SERVICO"}, "Tercerizado",
+    "Outro"
+)
