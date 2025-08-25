@@ -1,0 +1,1 @@
+Status fechamento = IF('Abertos ate 03022025 (2)'[Data de Fechamento] >= 'Abertos ate 03022025 (2)'[Data de vencimento], "Fora do Prazo", "Dentro do Prazo")
