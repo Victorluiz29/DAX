@@ -1,0 +1,4 @@
+MinutosSegundos1 = 
+VAR Minutos = VALUE(LEFT([Em Atendimento], FIND("m", [Em Atendimento]) - 1))
+VAR Segundos = VALUE(MID([Em Atendimento], FIND("m", [Em Atendimento]) + 2, LEN([Em Atendimento]) - FIND("m", [Em Atendimento]) - 2))
+RETURN Minutos + Segundos / 60
