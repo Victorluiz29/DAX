@@ -1,0 +1,16 @@
+Setorial = 
+SWITCH(
+    TRUE(),
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Cliente - Razão Social]), "MAR"), "Navio",
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Gerador - Departamento]), "SEDE/RJ"), "SEDE/RJ",
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Gerador - Departamento]), "UO-BAES"), "UO-BAES",
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Gerador - Departamento]), "UO-NES"), "UO-NES",
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Gerador - Departamento]), "UO-NORTE"), "UO-NORTE",
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Gerador - Departamento]), "UO-RJMG"), "UO-RJMG",
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Gerador - Departamento]), "UO-SPPCO"), "UO-SPPCO",
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Gerador - Departamento]), "UO-SPL"), "UO-SPL",
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Gerador - Departamento]), "UO-SUL"), "UO-SUL",
+    CONTAINSSTRING(TRIM('Abertos ate 03022025 (2)'[Cliente - Razão Social]), "Inativos"), "Desligados",
+    ISBLANK('Abertos ate 03022025 (2)'[Gerador - Departamento]), "SEDE/RJ",
+    "SEDE/RJ"  -- Valor padrão para casos não especificados
+)
