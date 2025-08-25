@@ -1,0 +1,5 @@
+TOTALHorasMinutos22 = 
+VAR TotalMinutos = SUMX(FILTER(Table1, NOT(ISBLANK([MinutosSegundos1]))), [MinutosSegundos1])
+VAR Horas = INT(TotalMinutos / 60)
+VAR MinutosRestantes = MOD(TotalMinutos, 60)
+RETURN FORMAT(Horas, "00") & ":" & FORMAT(MinutosRestantes, "00")
