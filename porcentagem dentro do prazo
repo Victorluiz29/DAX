@@ -1,0 +1,1 @@
+PorcentagemDentroDoPrazo = DIVIDE([ItensDentroDoPrazo], [TotalItens], 0)
